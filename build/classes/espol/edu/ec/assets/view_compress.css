@@ -1,0 +1,37 @@
+*{
+    -fx-primary : #2A2E37;
+    -fx-secondary : #ffffff;
+}
+
+#anchor{
+    -fx-background-color: -fx-primary;
+    -fx-background-radius: 15px;
+}
+
+#button_close{
+    -fx-background-color: -fx-primary;
+    -fx-graphic: url("close_n.png");
+    
+}
+#button_close:hover{
+    -fx-graphic: url("close_h.png");
+    
+}
+
+#button_compress , #button_fileChooser{
+    -fx-text-fill: -fx-secondary;
+    -fx-font-weight: bold;
+    -fx-background-color: #29559b;
+    -fx-background-radius: 7px;
+    -fx-font-size: 10pt;
+}
+
+#button_compress:hover , #button_fileChooser:hover{
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: -fx-primary;
+}
+
+/*{
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: -fx-primary;
+}*/

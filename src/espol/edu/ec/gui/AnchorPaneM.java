@@ -32,7 +32,5 @@ public class AnchorPaneM extends AnchorPane{
         });
         
     }
-        
-    
-    
+ 
 }

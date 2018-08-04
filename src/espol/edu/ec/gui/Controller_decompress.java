@@ -10,6 +10,7 @@ import espol.edu.ec.TDA.Util;
 import java.io.File;
 import java.util.HashMap;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -75,6 +76,9 @@ public class Controller_decompress {
         textoSinCodificar = ArbolHuffman.decodificar(textoCodificado, codigos);
         
         Util.guardarDecodificado(pathArchivo, textoSinCodificar);
+        
+        AlertM msg = new AlertM(Alert.AlertType.NONE, stageDecompress, "Descompresión completa.");
+        msg.init("Seguir descomprimiendo", "Cerrar descompresor");
         
     }
     

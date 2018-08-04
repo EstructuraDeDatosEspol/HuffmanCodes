@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchor" prefHeight="219.0" prefWidth="355.0" styleClass="mainFxmlClass" stylesheets="@../assets/view_decompress.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.edu.ec.gui.Controller_decompress">
+<AnchorPane id="anchor" prefHeight="223.0" prefWidth="386.0" styleClass="mainFxmlClass" stylesheets="@../assets/view_decompress.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.edu.ec.gui.Controller_decompress">
    <children>
-      <Button fx:id="button_close" graphicTextGap="1.0" layoutX="323.0" layoutY="5.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="25.0" />
-      <Button fx:id="button_decompress" layoutX="216.0" layoutY="155.0" mnemonicParsing="false" onAction="#decompress" text="Descomprimir" />
-      <Label fx:id="labelErrorMsg" layoutX="150.0" layoutY="83.0" visible="false" />
-      <HBox alignment="CENTER" layoutX="51.0" layoutY="51.0" prefHeight="25.0" prefWidth="260.0">
+      <Button fx:id="button_close" graphicTextGap="1.0" layoutX="350.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="25.0" />
+      <Button fx:id="button_decompress" layoutX="244.0" layoutY="167.0" mnemonicParsing="false" onAction="#decompress" text="Descomprimir" />
+      <Label layoutX="24.0" layoutY="22.0" text="Seleccione el archivo a decodificar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <HBox alignment="CENTER" layoutX="42.0" layoutY="52.0" prefHeight="30.0" prefWidth="309.0">
          <children>
-            <TextField fx:id="textPath" prefHeight="25.0" prefWidth="248.0" promptText="Ruta del archivo" />
+            <TextField fx:id="textPath" disable="true" editable="false" prefHeight="25.0" prefWidth="271.0" promptText="Archivo codificado" />
             <Button fx:id="button_fileChooser" ellipsisString=". . ." mnemonicParsing="false" onAction="#chooseFile" prefHeight="20.0" prefWidth="34.0" text=". . . " />
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="51.0" layoutY="106.0" prefHeight="37.0" prefWidth="260.0" spacing="5.0">
+      <Label fx:id="labelErrorMsg" layoutX="160.0" layoutY="140.0" text="Debe seleccionar todos los archivos" textFill="#eb6777" visible="false">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <HBox alignment="CENTER" layoutX="42.0" layoutY="97.0" prefHeight="30.0" prefWidth="309.0">
          <children>
-            <CheckBox fx:id="checkRename" mnemonicParsing="false" onAction="#actionSelect" prefHeight="17.0" prefWidth="140.0" text="Renombrar" textFill="WHITE" />
-            <TextField fx:id="textRename" disable="true" prefHeight="25.0" prefWidth="196.0" promptText="Nombre del archivo" visible="false" />
+            <TextField fx:id="textCodesPath" disable="true" editable="false" prefHeight="25.0" prefWidth="271.0" promptText="Archivo con codigos" />
+            <Button fx:id="button_fileChooser2" ellipsisString=". . ." mnemonicParsing="false" onAction="#chooseFileCodes" prefHeight="20.0" prefWidth="34.0" text=". . . " />
          </children>
       </HBox>
+     
    </children>
 </AnchorPane>

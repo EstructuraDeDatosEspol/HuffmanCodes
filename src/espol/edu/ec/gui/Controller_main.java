@@ -36,6 +36,8 @@ public class Controller_main {
         controller.setStage(stageCompress);
         
         stageCompress.setScene(new Scene(root));
+        stageCompress.setX(stage_main.getX()*1.5);
+        stageCompress.setY(stage_main.getY()*1.5);
         stageCompress.show();
     }
     
@@ -53,6 +55,8 @@ public class Controller_main {
         controller.setStage(stageDecompress);
         
         stageDecompress.setScene(new Scene(root));
+        stageDecompress.setX(stage_main.getX()*1.5);
+        stageDecompress.setY(stage_main.getY()*1.5);
         stageDecompress.show();
     }
     

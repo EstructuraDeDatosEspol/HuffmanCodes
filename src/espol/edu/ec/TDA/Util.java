@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class Util {
 
-    final static String SEPARATOR = ",";
+    final public static String SEPARATOR = "|";
 
     static String[] hexCharacters = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
 
@@ -39,7 +39,6 @@ public class Util {
             s = new Scanner(new File(pathArchivo));
             while (s.hasNextLine()) {
                 text.append(s.nextLine());
-                text.append(" ");
             }
             s.close();
 
@@ -55,15 +54,13 @@ public class Util {
         HashMap<String, Integer> frecuencias = new HashMap<>();
 
         for (int i = 0; i < texto.length(); i++) {
-            String c = String.valueOf(texto.charAt(i)).toLowerCase();
-
+            String c = String.valueOf(texto.charAt(i));
             if (frecuencias.containsKey(c)) {
                 frecuencias.put(c, frecuencias.get(c) + 1);
             } else {
                 frecuencias.put(c, 1);
             }
         }
-
         return frecuencias;
     }
 
@@ -71,7 +68,7 @@ public class Util {
 
         StringBuilder hexadecimal = new StringBuilder();
         StringBuilder temp = new StringBuilder();
-
+       
         int i;
         for (i = 0; i < binario.length(); i++) {
 
@@ -90,68 +87,76 @@ public class Util {
         StringBuilder hex = new StringBuilder();
 
         int dec = 0;
-
-        for (int i = 0; i < bin.length(); i++) {
-            int b = bin.charAt(i) == '0' ? 0 : 1;
-            dec += (int) b * Math.pow(2, i);
+        int exp=0;
+        int index=bin.length()-1;
+        while (index>=0) {
+            int b = bin.charAt(index--) == '0' ? 0 : 1;
+            dec += (int) b * Math.pow(2, exp++);
         }
-
-        System.out.println(dec);
+        
         return hexCharacters[dec];
     }
 
     public static String hexadecimalBinario(String hexadecimal) {
         StringBuilder binario = new StringBuilder();
+        StringBuilder temp;
 
-        int decValue = decValueOfHex(hexadecimal);
+        for (int i = 0; i < hexadecimal.length(); i++) {
+            temp = new StringBuilder();
+            int decValue = decValueOfHex(String.valueOf(hexadecimal.charAt(i)));
 
-        while (decValue > 0) {
-            binario.append(decValue % 2);
-            decValue = decValue / 2;
+            while (decValue > 0) {
+                temp.append(decValue % 2);
+                decValue = decValue / 2;
+            }
+            while (temp.length() < 4) {
+                temp.append("0");
+            }
+            binario.append(temp.reverse().toString());
+
         }
-        while (binario.length() < 4) {
-            binario.append("0");
-        }
-        return binario.reverse().toString();
+        return binario.toString();
     }
 
-    public static void guardarTexto(String nombreArchivo, String texto, HashMap<String, String> mapa) {
+    public static void guardarTexto(String path, String texto, HashMap<String, String> codigos) {
 
         StringBuilder line = new StringBuilder();
+        File file;
 
         try {
-            PrintWriter generatedFile = new PrintWriter(nombreArchivo + ".txt");
-            generatedFile.println(texto);
+            file = new File(path.substring(0,path.length()-4)+"_codificado.txt");
+            PrintWriter generatedFile = new PrintWriter(file);
+            generatedFile.print(texto);
+            generatedFile.close();
 
         } catch (FileNotFoundException e) {
             System.out.println("Ha ocurrido un problema al generar el archivo. " + e.getMessage());
         }
 
         try {
-            PrintWriter codesFile = new PrintWriter(nombreArchivo + "_codes.txt");
+            file = new File(path.substring(0, path.length()-4) + "_codificado_codes.txt");
+            PrintWriter codesFile = new PrintWriter(file);
 
-            for (Map.Entry<String, String> entry : mapa.entrySet()) {
-                line.append(entry.getKey()).append(SEPARATOR).append(entry.getValue());
-                codesFile.println(line);
-                line = new StringBuilder();
+            for (Map.Entry<String, String> entry : codigos.entrySet()) {
+                line.append(entry.getKey()).append(SEPARATOR).append(entry.getValue()).append("\n");
             }
+            codesFile.print(line);
+            codesFile.close();
         } catch (FileNotFoundException e) {
             System.out.println("Ha ocurrido un problema al generar el archivo de codigos. " + e.getMessage());
         }
     }
 
     public static HashMap<String, String> leerMapa(String nombreArchivo) {
-        nombreArchivo += "_codes.txt";
 
         HashMap<String, String> mapa = new HashMap<>();
-
         Scanner s;
 
         try {
             s = new Scanner(new File(nombreArchivo));
             while (s.hasNextLine()) {
-                String data[] = s.nextLine().split(SEPARATOR);
-                mapa.put(data[0], data[1]);
+                String data[] = s.nextLine().split("\\|");
+                mapa.put(data[1], data[0]);  // key = binario, value = caracter
             }
             s.close();
 
@@ -161,5 +166,20 @@ public class Util {
         }
 
         return mapa;
+    }
+    
+    public static void guardarDecodificado(String path, String texto){
+        StringBuilder line = new StringBuilder();
+        File file;
+
+        try {
+            file = new File(path.substring(0,path.length()-4)+"_decodificado.txt");
+            PrintWriter generatedFile = new PrintWriter(file);
+            generatedFile.print(texto);
+            generatedFile.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Ha ocurrido un problema al generar el archivo. " + e.getMessage());
+        }
     }
 }

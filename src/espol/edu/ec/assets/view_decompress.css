@@ -19,7 +19,7 @@
     
 }
 
-#button_decompress , #button_fileChooser{
+.button{
     -fx-text-fill: -fx-secondary;
     -fx-font-weight: bold;
     -fx-background-color: #29559b;
@@ -27,12 +27,7 @@
     -fx-font-size: 10pt;
 }
 
-#button_decompress:hover{
-    -fx-background-color: -fx-secondary;
-    -fx-text-fill: -fx-primary;
-}
-
-#button_fileChooser:hover{
+.button:hover{
     -fx-background-color: -fx-secondary;
     -fx-text-fill: -fx-primary;
 }

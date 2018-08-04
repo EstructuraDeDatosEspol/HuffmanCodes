@@ -15,10 +15,21 @@ public class Nodo {
     Integer frecuencia;
     Nodo left, right;
     
+    public Nodo(){
+        
+    }
+    
     public Nodo(String caracter, Integer frecuencia) {
         this.caracter= caracter;
         this.frecuencia = frecuencia;
     }
+
+    @Override
+    public String toString() {
+        return "{"+caracter + ", " +frecuencia + '}';
+    }
+    
+    
    
     public String getCaracter() {
         return caracter;

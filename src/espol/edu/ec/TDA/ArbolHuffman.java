@@ -5,52 +5,123 @@
  */
 package espol.edu.ec.TDA;
 
-import java.util.Collections;
-import java.util.Deque;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  *
  * @author MiguelPS
  */
 public class ArbolHuffman {
-    
-    Nodo raiz;
-    
-    
-    public void calcularArbol (HashMap<String,Integer> mapa){
-        Deque<Map.Entry<String,Integer>> frecuencias = ordenarFrecuancias(mapa);
-        
+
+    final private String NO_CHARACTER = "-1";
+    private Nodo raiz;
+
+    public ArbolHuffman() {
+        raiz = new Nodo(NO_CHARACTER, 0); //
         
     }
-    
-    public HashMap<String,String> calcularCodigos (){
+
+  
+    public void calcularArbol(HashMap<String, Integer> mapaFrecuencias) {
+
+        PriorityQueue<Nodo> frecuencias = new PriorityQueue<>((Nodo n1, Nodo n2) -> (n1.getFrecuencia()-n2.getFrecuencia()));
+
+        for (Map.Entry<String, Integer> entry : mapaFrecuencias.entrySet()) {
+            frecuencias.add(new Nodo(entry.getKey(), entry.getValue()));
+        }
+
+        if (frecuencias.size() == 1) {
+            raiz = frecuencias.poll();
+            return;
+        } else {
+            while (frecuencias.size() > 1) {
+            
+                Nodo left = frecuencias.poll();
+                Nodo right = frecuencias.poll();
+
+                Nodo parent = new Nodo(NO_CHARACTER, left.getFrecuencia() + right.getFrecuencia());
+                
+                parent.setLeft(left);
+                parent.setRight(right);
+                frecuencias.offer(parent);
+            }
+        }
+        raiz = frecuencias.poll();
+
+    }
+
+    public HashMap<String, String> calcularCodigos() {
+
         HashMap<String, String> codigos = new HashMap<>();
-        
+        String bin = "";
+        calcularCodigos(codigos, raiz, bin);
         return codigos;
     }
-    
-    public String codificar(String texto, HashMap<String,String> mapa){
-        StringBuilder result= new StringBuilder();
+    private void calcularCodigos(HashMap<String, String> codigos, Nodo temp, String bin) {
         
-        
-        return result.toString();
+
+        if (temp.getLeft() == null && temp.getRight() == null) {
+            codigos.put(temp.getCaracter(), bin);
+            return;
+        }
+
+        calcularCodigos(codigos, temp.getLeft() , bin + "1");
+        calcularCodigos(codigos, temp.getRight(), bin + "0");
+
     }
-    
-    public String decodificar(String texto, HashMap<String,String> mapa){
-        StringBuilder result= new StringBuilder();
+
+
+    public String codificar(String textoSinCodificar, HashMap<String, String> codigos) {
+        StringBuilder temp = new StringBuilder();
         
-        
-        return result.toString();
-    }
-    
-    private LinkedList<Map.Entry<String,Integer>> ordenarFrecuancias(HashMap<String,Integer> mapa){
-        LinkedList<Map.Entry<String,Integer>> result = new LinkedList<>();
-        
-        Collections.sort(result, (Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) -> o2.getValue().compareTo(o1.getValue()));
+        for(int i =0 ; i<textoSinCodificar.length();i++){
+            temp.append(codigos.get(String.valueOf(textoSinCodificar.charAt(i))));
+        }
+        String result = Util.binarioHexadecimal(temp.toString());
         
         return result;
     }
+
+    public static String decodificar(String textoCodificado, HashMap<String, String> codigos) {
+        StringBuilder result = new StringBuilder();
+        
+        String bin = Util.hexadecimalBinario(textoCodificado);
+        
+        String tempBin;
+        String caracter;
+        
+        int inicio = 0;
+        int fin;
+        int tempBinLenght=0; // tamaño del binario que representa en caracter
+        
+        for(fin = 0; fin <= bin.length(); fin++){
+            
+            tempBin  = bin.substring(inicio,fin);
+            
+            caracter = codigos.get(tempBin);
+            if(caracter!=null){
+                result.append(caracter);
+                inicio+=tempBin.length();
+            }
+        } 
+        return result.toString();
+    }
+    
+//    private Nodo searchCaracter(Nodo temp, String bin, int index){
+//        
+//        if(temp.getLeft() == null && temp.getRight() == null)
+//            return temp;
+//        if(bin.charAt(index)=='1')
+//            return searchCaracter(temp.getLeft(), bin, index++);
+//        else
+//            return searchCaracter(temp.getRight(), bin, index++);
+//    }
+
+    public Nodo getRaiz() {
+        return raiz;
+    }
+
+    
 }

@@ -5,12 +5,14 @@
  */
 package espol.edu.ec.gui;
 
+import espol.edu.ec.TDA.ArbolHuffman;
+import espol.edu.ec.TDA.Util;
 import java.io.File;
+import java.util.HashMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -24,38 +26,55 @@ public class Controller_decompress {
     
     @FXML Label labelErrorMsg;
     @FXML CheckBox checkRename;
-    @FXML TextField textRename;
     @FXML TextField textPath;
+    @FXML TextField textCodesPath;
     
     private File file;
+    private File fileCodes;
+    private String pathArchivo;
+    private String pathArchivoCodes;
+    private FileChooser fc;
    
     
     @FXML void chooseFile(){
-        FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de texto ", "*.txt"));
+        fc = new FileChooser();
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo de texto ", "*.txt"));
         file = fc.showOpenDialog(stageDecompress);
-        if(file!= null)
+        if (file != null) {
+            textPath.setDisable(false);
             textPath.setText(file.getAbsolutePath());
-    }
-    @FXML void decompress(){
-        if(textPath.getText().length()<=1){
-            labelErrorMsg.setText("Ingrese la ruta del archivo.");
-            labelErrorMsg.setTextFill(Color.valueOf("#eb6777"));
-            labelErrorMsg.setVisible(true);
+            pathArchivo = file.getAbsolutePath();
         }
-
-        
     }
     
-    @FXML void actionSelect(){
-        if(checkRename.isSelected()){
-            textRename.setVisible(true);
-            textRename.setDisable(false);
-            
-        }else{
-            textRename.setDisable(true);
-            textRename.setVisible(false);
+    @FXML void chooseFileCodes(){
+        fc = new FileChooser();
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo de texto ", "*.txt"));
+        fileCodes = fc.showOpenDialog(stageDecompress);
+        if (fileCodes != null) {
+            textCodesPath.setDisable(false);
+            textCodesPath.setText(fileCodes.getAbsolutePath());
+            pathArchivoCodes = fileCodes.getAbsolutePath();
         }
+    }
+    
+    @FXML void decompress(){
+        if(file==null || fileCodes==null){
+            labelErrorMsg.setVisible(true);
+            return;
+        }
+
+        String textoCodificado;
+        String textoSinCodificar;    
+        
+        HashMap<String, Integer> frecuencias;
+        HashMap<String, String> codigos;
+        
+        textoCodificado = Util.leerTexto(file.getAbsolutePath());
+        codigos = Util.leerMapa(pathArchivoCodes);
+        textoSinCodificar = ArbolHuffman.decodificar(textoCodificado, codigos);
+        
+        Util.guardarDecodificado(pathArchivo, textoSinCodificar);
         
     }
     

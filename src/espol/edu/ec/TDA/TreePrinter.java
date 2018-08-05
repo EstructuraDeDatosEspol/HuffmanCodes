@@ -10,8 +10,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
- * @author MiguelPS
+ * Clase util para mostrar gráficamente el arbol binario de huffman por consola
+ * @author MiguelPS + otros autores en linea
  */
 public class TreePrinter {
 

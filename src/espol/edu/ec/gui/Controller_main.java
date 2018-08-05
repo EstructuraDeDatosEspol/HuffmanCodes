@@ -24,9 +24,11 @@ public class Controller_main {
     Stage stageDecompress;
 
     @FXML void optionCompress() throws IOException{
-        if(stageDecompress!=null){
+        if(stageDecompress!=null)
             stageDecompress.close();
-        }
+        
+        if(stageCompress!=null)
+            stageCompress.close();
             
         stageCompress = new Stage();
         stageCompress.initStyle(StageStyle.UNDECORATED);
@@ -36,17 +38,20 @@ public class Controller_main {
         controller.setStage(stageCompress);
         
         stageCompress.setScene(new Scene(root));
-        stageCompress.setX(stage_main.getX()*1.5);
-        stageCompress.setY(stage_main.getY()*1.5);
+        stageCompress.setX(stage_main.getX()*0.6);
+        stageCompress.setY(stage_main.getY()*1.2);
         stageCompress.show();
     }
     
     
     @FXML void optionDecompress() throws IOException{
         
-        if(stageCompress!=null){
+         if(stageDecompress!=null)
+            stageDecompress.close();
+        
+        if(stageCompress!=null)
             stageCompress.close();
-        }
+        
         stageDecompress = new Stage();
         stageDecompress.initStyle(StageStyle.UNDECORATED);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("view_decompress.fxml"));
@@ -55,8 +60,8 @@ public class Controller_main {
         controller.setStage(stageDecompress);
         
         stageDecompress.setScene(new Scene(root));
-        stageDecompress.setX(stage_main.getX()*1.5);
-        stageDecompress.setY(stage_main.getY()*1.5);
+        stageDecompress.setX(stage_main.getX()*1.2);
+        stageDecompress.setY(stage_main.getY()*1.2);
         stageDecompress.show();
     }
     

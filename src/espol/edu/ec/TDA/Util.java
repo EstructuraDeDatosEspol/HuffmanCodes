@@ -19,11 +19,11 @@ public class Util {
 
     final public static String SEPARATOR = "|";
 
-    static String[] hexCharacters = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
+    final static String[] HEX_CARACTER = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
 
     static int decValueOfHex(String hex) {
-        for (int i = 0; i < hexCharacters.length; i++) {
-            if (hex.equals(hexCharacters[i])) {
+        for (int i = 0; i < HEX_CARACTER.length; i++) {
+            if (hex.equals(HEX_CARACTER[i])) {
                 return i;
             }
         }
@@ -67,56 +67,98 @@ public class Util {
     public static String binarioHexadecimal(String binario) {
 
         StringBuilder hexadecimal = new StringBuilder();
-        StringBuilder temp = new StringBuilder();
-       
-        int i;
-        for (i = 0; i < binario.length(); i++) {
+        StringBuilder tempBin = new StringBuilder();
+        
+        for (int i = 0; i < binario.length(); i++) {
 
-            temp.append(binario.charAt(i));
+            tempBin.append(binario.charAt(i));
             if ((i + 1) % 4 == 0) {
-                hexadecimal.append(binToHex(temp));
-                temp = new StringBuilder();
+                hexadecimal.append(binToHex(tempBin));
+                tempBin = new StringBuilder();
             }
         }
-        hexadecimal.append(temp);
+        
+        //agrega "-" al final del codigo hex por cada cero que se suprime en el binario 
+        StringBuilder hex = new StringBuilder();
+        int j=0;
+        while(j < tempBin.length() && tempBin.charAt(j)=='0') {
+                hex.append("-");
+        }
+        hex.append(binToHex(tempBin));
+        hexadecimal.append(hex.reverse());
 
         return hexadecimal.toString();
     }
-
+    
+    /**
+    * método auxiliar para convertir un binario de 4 o menos bits a hexadecimal
+    * 
+    *@param bin representa el binario de un valor decimal ( base 10)
+    *@return caracter hexadecimal (obtenido de HEX_CARACTER con el valor decimal correspondiente)
+    */
     private static String binToHex(StringBuilder bin) {
-        StringBuilder hex = new StringBuilder();
-
+        
         int dec = 0;
-        int exp=0;
+        int exp = 0;
         int index=bin.length()-1;
         while (index>=0) {
             int b = bin.charAt(index--) == '0' ? 0 : 1;
             dec += (int) b * Math.pow(2, exp++);
         }
         
-        return hexCharacters[dec];
+        return HEX_CARACTER[dec];
     }
 
     public static String hexadecimalBinario(String hexadecimal) {
         StringBuilder binario = new StringBuilder();
         StringBuilder temp;
-
-        for (int i = 0; i < hexadecimal.length(); i++) {
+        
+        // "extra" cuenta la cantidad de ceros suprimidos 
+        int extra = 0;
+        int fin=hexadecimal.length()-1;
+        while(hexadecimal.charAt(fin--)=='-')
+            extra++;
+        
+        // itera hasta el penúltimo caracter hexadecimal
+        // por lo cual se agregan ceros al principio del binario hasta completar los 4 bits
+        fin=hexadecimal.length()-extra-1;
+        for (int i = 0; i < fin; i++) {
             temp = new StringBuilder();
             int decValue = decValueOfHex(String.valueOf(hexadecimal.charAt(i)));
 
-            while (decValue > 0) {
-                temp.append(decValue % 2);
-                decValue = decValue / 2;
-            }
+            temp.append(decToBin(decValue));
+            
             while (temp.length() < 4) {
                 temp.append("0");
             }
-            binario.append(temp.reverse().toString());
-
+            binario.append(temp.reverse());
         }
+        
+        // calcula el binario correspondiente al ultimo caracter hexadecimal
+        // tomando en cuenta la cantidad ceros suprimidos, lo cual es determinado por "extra"
+        temp=new StringBuilder(decToBin(decValueOfHex(String.valueOf(hexadecimal.charAt(fin)))));
+        while(extra-- > 0){
+            temp.append("0");
+        }
+        binario.append(temp.reverse());
+        
         return binario.toString();
     }
+    
+    /**
+    * método auxiliar para convertir un numero decimal a binario
+    * @param dec representa el valor decimal
+    * @return String con el correspondiente binario 
+    */
+    private static String decToBin(int dec){
+        StringBuilder temp = new StringBuilder();
+        while (dec > 0) {
+                temp.append(dec % 2);
+                dec = dec / 2;
+            }
+        return temp.toString();
+    }
+    
 
     public static void guardarTexto(String path, String texto, HashMap<String, String> codigos) {
 
@@ -168,6 +210,13 @@ public class Util {
         return mapa;
     }
     
+        /**
+    * método para generar un archivo ".txt" con el texto codificado se toma 
+    * la ruta y nombre del texto original (no codificado) agregandole el identificador "_decodificado.txt"
+    * @param path es la ruta + nombre del nuevo archivo
+    * @param texto texto codificado
+    * @return String con el correspondiente binario 
+    */
     public static void guardarDecodificado(String path, String texto){
         StringBuilder line = new StringBuilder();
         File file;

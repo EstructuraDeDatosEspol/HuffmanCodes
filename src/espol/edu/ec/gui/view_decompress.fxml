@@ -17,7 +17,7 @@
          </font></Label>
       <HBox alignment="CENTER" layoutX="42.0" layoutY="52.0" prefHeight="30.0" prefWidth="309.0">
          <children>
-            <TextField fx:id="textPath" disable="true" editable="false" prefHeight="25.0" prefWidth="271.0" promptText="Archivo codificado" />
+            <TextField fx:id="textPath" editable="false" prefHeight="25.0" prefWidth="271.0" promptText="Archivo codificado" />
             <Button fx:id="button_fileChooser" ellipsisString=". . ." mnemonicParsing="false" onAction="#chooseFile" prefHeight="20.0" prefWidth="34.0" text=". . . " />
          </children>
       </HBox>
@@ -27,7 +27,7 @@
          </font></Label>
       <HBox alignment="CENTER" layoutX="42.0" layoutY="97.0" prefHeight="30.0" prefWidth="309.0">
          <children>
-            <TextField fx:id="textCodesPath" disable="true" editable="false" prefHeight="25.0" prefWidth="271.0" promptText="Archivo con codigos" />
+            <TextField fx:id="textCodesPath" editable="false" prefHeight="25.0" prefWidth="271.0" promptText="Archivo con codigos" />
             <Button fx:id="button_fileChooser2" ellipsisString=". . ." mnemonicParsing="false" onAction="#chooseFileCodes" prefHeight="20.0" prefWidth="34.0" text=". . . " />
          </children>
       </HBox>

@@ -15,7 +15,7 @@
 
 
 #button_close{
-    -fx-background-color: -fx-backg;
+    -fx-background-color: -fx-primary;
     -fx-graphic: url("close_n.png");
     
 }

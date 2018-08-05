@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 
 /**
- *
+ * AnchoPane, se mueve al arrastrar con el mouse
  * @author MiguelPS
  */
 public class AnchorPaneM extends AnchorPane{

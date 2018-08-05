@@ -13,7 +13,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.Stage;
 
 /**
- *
+ * muestra un alert cuando la operacion de compresion o descompresion se hayan realizado
  * @author MiguelPS
  */
 public class AlertM extends Alert {

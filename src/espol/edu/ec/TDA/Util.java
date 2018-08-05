@@ -50,6 +50,9 @@ public class Util {
             s = new Scanner(new File(pathArchivo));
             while (s.hasNextLine()) {
                 text.append(s.nextLine());
+                if(s.hasNextLine()){
+                    text.append("°");   
+                }
             }
             s.close();
 
@@ -100,9 +103,11 @@ public class Util {
         //agrega "-" al final del codigo hex por cada cero que se suprime en el binario 
         // esto es necesario para que no hayan caracteres que no corresponden al momento de decodificar
         StringBuilder hex = new StringBuilder();
+
         int j=0;
         while(j < tempBin.length() && tempBin.charAt(j)=='0') {
                 hex.append("-");
+                j++;
         }
         hex.append(binToHex(tempBin));
         hexadecimal.append(hex.reverse());
@@ -133,10 +138,10 @@ public class Util {
         StringBuilder binario = new StringBuilder();
         StringBuilder temp;
         
-        // "extra" cuenta la cantidad de ceros suprimidos 
+        // "extra" cuenta la cantidad de ceros que deben agregarse
         int extra = 0;
-        int fin=hexadecimal.length()-1;
-        while(hexadecimal.charAt(fin--)=='-')
+        int fin=hexadecimal.length();
+        while(hexadecimal.charAt(--fin)=='-')
             extra++;
         
         // itera hasta el penúltimo caracter hexadecimal
@@ -155,7 +160,7 @@ public class Util {
         }
         
         // calcula el binario correspondiente al ultimo caracter hexadecimal
-        // tomando en cuenta la cantidad ceros suprimidos, lo cual es determinado por "extra"
+        // agregando la cantidad ceros suprimidos, lo cual es determinado por "extra"
         temp=new StringBuilder(decToBin(decValueOfHex(String.valueOf(hexadecimal.charAt(fin)))));
         while((extra--) > 0){
             temp.append("0");
@@ -173,7 +178,7 @@ public class Util {
     private static String decToBin(int dec){
         StringBuilder temp = new StringBuilder();
         while (dec > 0) {
-                temp.append(dec % 2);
+                temp.append(String.valueOf(dec % 2));
                 dec = dec / 2;
             }
         return temp.toString();

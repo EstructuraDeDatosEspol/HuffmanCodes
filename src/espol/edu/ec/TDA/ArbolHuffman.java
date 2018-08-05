@@ -112,6 +112,10 @@ public class ArbolHuffman {
             caracter = codigos.get(tempBin);
             
             if(caracter!=null){
+                if(caracter.equals("°")){
+                    caracter="\n";
+                }
+                    
                 result.append(caracter);
                 inicio+=tempBin.length();
             }

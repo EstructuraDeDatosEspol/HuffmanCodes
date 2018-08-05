@@ -10,13 +10,18 @@ import javafx.stage.Stage;
 
 
 /**
- * AnchoPane, se mueve al arrastrar con el mouse
+ * AnchoPane, mueve la ventana al hacer clic dentro y arrastrar con el mouse
  * @author MiguelPS
  */
 public class AnchorPaneM extends AnchorPane{
 
     double x,y;
     
+    /**
+    * @param stage stage que contiene el root. Se usa para obtener la posicion X,Y 
+    * @param root anchorPane con toda la UI
+    * @return caracter hexadecimal (obtenido de HEX_CARACTER con el valor decimal correspondiente)
+    */
     public AnchorPaneM(Stage stage, AnchorPane root) {
         
         super(root);

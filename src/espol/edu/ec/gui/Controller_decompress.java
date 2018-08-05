@@ -39,7 +39,7 @@ public class Controller_decompress {
     
     @FXML void chooseFile(){
         fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo de texto ", "*.txt"));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo de texto ", "*.huff"));
         file = fc.showOpenDialog(stageDecompress);
         if (file != null) {
             textPath.setDisable(false);
@@ -50,7 +50,7 @@ public class Controller_decompress {
     
     @FXML void chooseFileCodes(){
         fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo de texto ", "*.txt"));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo de texto ", "*.codes"));
         fileCodes = fc.showOpenDialog(stageDecompress);
         if (fileCodes != null) {
             textCodesPath.setDisable(false);

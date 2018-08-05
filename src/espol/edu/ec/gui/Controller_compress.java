@@ -15,11 +15,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.util.HashMap;
-import java.util.Optional;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.stage.StageStyle;
+
 
 /**
  *
@@ -43,6 +40,10 @@ public class Controller_compress {
     private File file;
     private String pathArchivo;
 
+    /**
+    * abre una ventana para elegir el archivo de texto para comprimir
+    * Solo soporta ".txt"
+    */
     @FXML
     void chooseFile() {
         FileChooser fc = new FileChooser();
@@ -55,8 +56,15 @@ public class Controller_compress {
 
     }
 
+    /**
+    * Ejecuta el proceso de compresión, genera el arbol de huffman y escribe los nuevos archivos
+    * Solo soporta ".txt"
+    */
     @FXML
     void compress() {
+        
+        //verifica si se ha elegido un archivo
+        // si no, muestra un mensaje
         if (textPath.getText().length() <= 1) {
             labelErrorMsg.setVisible(true);
             return;
@@ -78,13 +86,11 @@ public class Controller_compress {
         arbol.calcularArbol(frecuencias);
 
         codigos = arbol.calcularCodigos();
-
-//        codigos.entrySet().forEach((entry)->{
-//            System.out.println(entry.getKey()+"---"+entry.getValue());
-//        });
-//        
+// descomenten esta parte si quieren visualizar el arbol de huffman 
 //        TreePrinter printer = new TreePrinter();
 //        printer.printNode(arbol.getRaiz());
+
+        
         if (checkRename.isSelected()) {
             if (textRename.getText().length() > 0) {
                 pathArchivo = pathArchivo.substring(0, pathArchivo.length() - file.getName().length()) + textRename.getText() + ".txt";

@@ -6,6 +6,7 @@
 package espol.edu.ec.gui;
 
 import espol.edu.ec.TDA.ArbolHuffman;
+import espol.edu.ec.TDA.TreePrinter;
 import espol.edu.ec.TDA.Util;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.util.Map;
 import java.util.HashMap;
 import javafx.scene.control.Alert;
 
@@ -81,8 +83,7 @@ public class Controller_compress {
         
         
 // descomenten esta parte si quieren visualizar el arbol de huffman 
-//        TreePrinter printer = new TreePrinter();
-//        printer.printNode(arbol.getRaiz());
+//        TreePrinter.printNode(arbol.getRaiz());
 
         
         if (checkRename.isSelected()) {
@@ -95,7 +96,7 @@ public class Controller_compress {
             }
         }
 
-        HashMap<String, String> codigos = arbol.calcularCodigos();
+        Map<String, String> codigos = arbol.calcularCodigos();
         String textoCodificado = arbol.codificar(textoOriginal, codigos);
         Util.guardarTexto(pathArchivo, textoCodificado, codigos);
 

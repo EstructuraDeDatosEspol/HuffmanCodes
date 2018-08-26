@@ -8,7 +8,7 @@ package espol.edu.ec.gui;
 import espol.edu.ec.TDA.ArbolHuffman;
 import espol.edu.ec.TDA.Util;
 import java.io.File;
-import java.util.HashMap;
+import java.util.Map;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
@@ -66,7 +66,7 @@ public class Controller_decompress {
         }
 
         String textoCodificado = Util.leerTexto(file.getAbsolutePath());
-        HashMap<String, String> codigos = Util.leerMapa(pathArchivoCodes);
+        Map<String, String> codigos = Util.leerMapa(pathArchivoCodes);
         String textoOriginal = ArbolHuffman.decodificar(textoCodificado, codigos);
         
         Util.guardarDecodificado(pathArchivo, textoOriginal);

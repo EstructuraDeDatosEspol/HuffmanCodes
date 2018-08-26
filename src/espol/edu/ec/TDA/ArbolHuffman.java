@@ -16,7 +16,7 @@ import java.util.PriorityQueue;
 public class ArbolHuffman {
 
     //será el caracter por defecto de los nodos no hojas
-    final private String NO_CHARACTER = "-1";
+    private final String NO_CHARACTER = "-1";
     
     private Nodo raiz;
     private boolean singleCharacter;
@@ -26,13 +26,13 @@ public class ArbolHuffman {
     }
 
   
-    public void calcularArbol(HashMap<String, Integer> mapaFrecuencias) {
+    public void calcularArbol(Map<String, Integer> mapaFrecuencias) {
 
         PriorityQueue<Nodo> frecuencias = new PriorityQueue<>((Nodo n1, Nodo n2) -> (n1.getFrecuencia()-n2.getFrecuencia()));
 
-        for (Map.Entry<String, Integer> entry : mapaFrecuencias.entrySet()) {
+        mapaFrecuencias.entrySet().forEach((entry) -> {
             frecuencias.add(new Nodo(entry.getKey(), entry.getValue()));
-        }
+        });
 
         if (frecuencias.size() == 1) {
             raiz = frecuencias.poll();
@@ -56,7 +56,7 @@ public class ArbolHuffman {
 
     }
 
-    public HashMap<String, String> calcularCodigos() {
+    public Map<String, String> calcularCodigos() {
 
         HashMap<String, String> codigos = new HashMap<>();
         
@@ -79,7 +79,7 @@ public class ArbolHuffman {
     * @param temp nodo de huffman. Si es una hoja, agrega el caracter y el binario calculado al hashMap 
     * @param bin codigo huffam. Recursivamente agrega: "1" si el caracter se encuentra en left caso contrario "0"
     */
-    private void calcularCodigos(HashMap<String, String> codigos, Nodo temp, String bin) {
+    private void calcularCodigos(Map<String, String> codigos, Nodo temp, String bin) {
         
 
         if (temp.getLeft() == null && temp.getRight() == null) {
@@ -93,7 +93,7 @@ public class ArbolHuffman {
     }
 
 
-    public String codificar(String textoSinCodificar, HashMap<String, String> codigos) {
+    public String codificar(String textoSinCodificar, Map<String, String> codigos) {
         
         StringBuilder temp = new StringBuilder();
         
@@ -106,7 +106,7 @@ public class ArbolHuffman {
         return result;
     }
 
-    public static String decodificar(String textoCodificado, HashMap<String, String> codigos) {
+    public static String decodificar(String textoCodificado, Map<String, String> codigos) {
         StringBuilder result = new StringBuilder();
         
         String bin = Util.hexadecimalBinario(textoCodificado);
@@ -133,7 +133,7 @@ public class ArbolHuffman {
     }
     
     // getter necesario para motrar gráficamente el arbol de huffman con la clase TreePrinter, el cual
-    // requiere del nodo root para trabajar
+    // requiere del nodo raiz para trabajar
     public Nodo getRaiz() {
         return raiz;
     }

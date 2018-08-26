@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  */
 public class AlertM extends Alert {
     
-    ButtonType stay;
+    ButtonType continueWith;
     ButtonType close;
     String text1;
     String text2;
@@ -32,17 +32,19 @@ public class AlertM extends Alert {
     }
     
     public void init(String text1, String text2){
-        stay = new ButtonType(text1);
+        continueWith = new ButtonType(text1);
         close = new ButtonType(text2, ButtonBar.ButtonData.CANCEL_CLOSE);
-        getButtonTypes().setAll(stay, close);
+        getButtonTypes().setAll(continueWith, close);
         Optional<ButtonType> result = showAndWait();
-
-        if (result.get() == stay) {
-            close();
-        } else {
-            close();
-            stage.close();
+        if (result.isPresent()) {
+            if (result.get() == continueWith) {
+                close();
+            } else {
+                close();
+                stage.close();
+            }
         }
+
     };
 
 }

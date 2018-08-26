@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class Util {
 
-    final public static String SEPARATOR = "\\|";
+    final public static String SEPARATOR = "\t";
 
     final static String[] HEX_CARACTER = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
 
@@ -129,7 +129,7 @@ public class Util {
         int index = bin.length() - 1;
         while (index >= 0) {
             int b = bin.charAt(index--) == '0' ? 0 : 1;
-            dec += (int) b * Math.pow(2, exp++);
+            dec += b * Math.pow(2, exp++);
         }
 
         return HEX_CARACTER[dec];
@@ -196,7 +196,7 @@ public class Util {
      * @param texto texto codificado
      * @param codigos
      */
-    public static void guardarTexto(String path, String texto, HashMap<String, String> codigos) {
+    public static void guardarTexto(String path, String texto, Map<String, String> codigos) {
 
         StringBuilder line = new StringBuilder();
         File file;

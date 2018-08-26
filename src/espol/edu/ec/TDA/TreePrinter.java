@@ -15,13 +15,13 @@ import java.util.List;
  */
 public class TreePrinter {
 
-    public static <E> void printNode(Nodo root) {
+    public static void printNode(Nodo root) {
         int maxLevel = TreePrinter.maxLevel(root);
 
         printNode(Collections.singletonList(root), 1, maxLevel);
     }
 
-    private static <E> void printNode(List<Nodo> nodes, int level, int maxLevel) {
+    private static void printNode(List<Nodo> nodes, int level, int maxLevel) {
         if (nodes.isEmpty() || TreePrinter.isAllElementsNull(nodes))
             return;
 

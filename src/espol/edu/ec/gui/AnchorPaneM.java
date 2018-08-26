@@ -8,34 +8,37 @@ package espol.edu.ec.gui;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-
 /**
  * AnchoPane, mueve la ventana al hacer clic dentro y arrastrar con el mouse
+ *
  * @author MiguelPS
  */
-public class AnchorPaneM extends AnchorPane{
+public class AnchorPaneM extends AnchorPane {
 
-    double x,y;
-    
+    double x;
+    double y;
+
     /**
-    * @param stage stage que contiene el root. Se usa para obtener la posicion X,Y 
-    * @param root anchorPane con toda la UI
-    * @return caracter hexadecimal (obtenido de HEX_CARACTER con el valor decimal correspondiente)
-    */
+     * @param stage stage que contiene el root. Se usa para obtener la posicion
+     * X,Y
+     * @param root anchorPane con toda la UI
+     * @return caracter hexadecimal (obtenido de HEX_CARACTER con el valor
+     * decimal correspondiente)
+     */
     public AnchorPaneM(Stage stage, AnchorPane root) {
-        
+
         super(root);
-        
-        this.setOnMousePressed((event) -> {
+
+        this.setOnMousePressed(event -> {
             x = stage.getX() - event.getScreenX();
             y = stage.getY() - event.getScreenY();
         });
-        
-        this.setOnMouseDragged((event) -> {
+
+        this.setOnMouseDragged(event -> {
             stage.setX(event.getScreenX() + x);
             stage.setY(event.getScreenY() + y);
         });
-        
+
     }
- 
+
 }

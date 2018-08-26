@@ -5,6 +5,8 @@
  */
 package espol.edu.ec.TDA;
 
+import java.util.Objects;
+
 /**
  *
  * @author MiguelPS
@@ -16,7 +18,6 @@ public class Nodo {
     Nodo left, right;
     
     public Nodo(){
-        
     }
     
     public Nodo(String caracter, Integer frecuencia) {
@@ -28,7 +29,36 @@ public class Nodo {
     public String toString() {
         return "{"+caracter + ", " +frecuencia + '}';
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.caracter);
+        hash = 53 * hash + Objects.hashCode(this.frecuencia);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Nodo other = (Nodo) obj;
+        if (!Objects.equals(this.caracter, other.caracter)) {
+            return false;
+        }
+        if (!Objects.equals(this.frecuencia, other.frecuencia)) {
+            return false;
+        }
+ 
+        return true;
+    }
     
    
     public String getCaracter() {

@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Clase util para mostrar gráficamente el arbol binario de huffman por consola
- * @author MiguelPS + otros autores en linea
+ * @author MiguelPS + otros autores en linea.
  */
 public class TreePrinter {
 
@@ -67,7 +67,6 @@ public class TreePrinter {
                     System.out.print("\\");
                 else
                     TreePrinter.prinSpaces(1);
-
                 TreePrinter.prinSpaces(endgeLines + endgeLines - i);
             }
 

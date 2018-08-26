@@ -24,7 +24,7 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="25.0" layoutY="100.0" prefHeight="49.0" prefWidth="309.0" spacing="5.0">
          <children>
-            <CheckBox fx:id="checkRename" mnemonicParsing="false" onAction="#actionSelect" prefHeight="37.0" prefWidth="131.0" text="Guardar con otro&#10;nombre" textFill="WHITE">
+            <CheckBox fx:id="checkRename" mnemonicParsing="false" onAction="#onSelectSaveWithOtherName" prefHeight="37.0" prefWidth="131.0" text="Guardar con otro&#10;nombre" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></CheckBox>

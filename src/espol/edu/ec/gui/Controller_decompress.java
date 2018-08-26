@@ -65,17 +65,11 @@ public class Controller_decompress {
             return;
         }
 
-        String textoCodificado;
-        String textoSinCodificar;    
+        String textoCodificado = Util.leerTexto(file.getAbsolutePath());
+        HashMap<String, String> codigos = Util.leerMapa(pathArchivoCodes);
+        String textoOriginal = ArbolHuffman.decodificar(textoCodificado, codigos);
         
-        HashMap<String, Integer> frecuencias;
-        HashMap<String, String> codigos;
-        
-        textoCodificado = Util.leerTexto(file.getAbsolutePath());
-        codigos = Util.leerMapa(pathArchivoCodes);
-        textoSinCodificar = ArbolHuffman.decodificar(textoCodificado, codigos);
-        
-        Util.guardarDecodificado(pathArchivo, textoSinCodificar);
+        Util.guardarDecodificado(pathArchivo, textoOriginal);
         
         AlertM msg = new AlertM(Alert.AlertType.NONE, stageDecompress, "Descompresión completa.");
         msg.init("Seguir descomprimiendo", "Cerrar descompresor");

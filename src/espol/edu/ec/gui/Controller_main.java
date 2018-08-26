@@ -22,6 +22,7 @@ public class Controller_main {
     Stage stage_main;
     Stage stageCompress;
     Stage stageDecompress;
+    
 
     @FXML void optionCompress() throws IOException{
         if(stageDecompress!=null)

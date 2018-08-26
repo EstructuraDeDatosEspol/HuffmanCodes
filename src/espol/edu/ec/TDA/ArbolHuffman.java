@@ -19,6 +19,7 @@ public class ArbolHuffman {
     final private String NO_CHARACTER = "-1";
     
     private Nodo raiz;
+    private boolean singleCharacter;
 
     public ArbolHuffman() {
         raiz = new Nodo(NO_CHARACTER, 0); 
@@ -35,8 +36,10 @@ public class ArbolHuffman {
 
         if (frecuencias.size() == 1) {
             raiz = frecuencias.poll();
+            singleCharacter = true;
             return;
         } else {
+            singleCharacter = false;
             while (frecuencias.size() > 1) {
             
                 Nodo left = frecuencias.poll();
@@ -56,10 +59,17 @@ public class ArbolHuffman {
     public HashMap<String, String> calcularCodigos() {
 
         HashMap<String, String> codigos = new HashMap<>();
+        
+        if(singleCharacter){
+            codigos.put(raiz.getCaracter(), "1");
+            return codigos;
+        }
+        
         String bin = "";
         calcularCodigos(codigos, raiz, bin);
         return codigos;
     }
+    
     
     /**
     * método privado auxiliar para calcular los códigos binarios de huffman correspondiente
@@ -115,7 +125,6 @@ public class ArbolHuffman {
                 if(caracter.equals("°")){
                     caracter="\n";
                 }
-                    
                 result.append(caracter);
                 inicio+=tempBin.length();
             }
@@ -123,16 +132,6 @@ public class ArbolHuffman {
         return result.toString();
     }
     
-//    private Nodo searchCaracter(Nodo temp, String bin, int index){
-//        
-//        if(temp.getLeft() == null && temp.getRight() == null)
-//            return temp;
-//        if(bin.charAt(index)=='1')
-//            return searchCaracter(temp.getLeft(), bin, index++);
-//        else
-//            return searchCaracter(temp.getRight(), bin, index++);
-//    }
-
     // getter necesario para motrar gráficamente el arbol de huffman con la clase TreePrinter, el cual
     // requiere del nodo root para trabajar
     public Nodo getRaiz() {

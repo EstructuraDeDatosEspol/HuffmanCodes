@@ -72,20 +72,14 @@ public class Controller_compress {
             labelErrorMsg.setVisible(false);
         }
 
-        String textoSinCodificar;
-        String textoCodificado;
-
-        HashMap<String, Integer> frecuencias;
-        HashMap<String, String> codigos;
-
-        textoSinCodificar = Util.leerTexto(file.getAbsolutePath());
-        frecuencias = Util.calcularFrecuencias(textoSinCodificar);
-
+        String textoOriginal= Util.leerTexto(file.getAbsolutePath());
+        
         ArbolHuffman arbol = new ArbolHuffman();
 
-        arbol.calcularArbol(frecuencias);
+        arbol.calcularArbol(Util.calcularFrecuencias(textoOriginal));
 
-        codigos = arbol.calcularCodigos();
+        
+        
 // descomenten esta parte si quieren visualizar el arbol de huffman 
 //        TreePrinter printer = new TreePrinter();
 //        printer.printNode(arbol.getRaiz());
@@ -101,7 +95,8 @@ public class Controller_compress {
             }
         }
 
-        textoCodificado = arbol.codificar(textoSinCodificar, codigos);
+        HashMap<String, String> codigos = arbol.calcularCodigos();
+        String textoCodificado = arbol.codificar(textoOriginal, codigos);
         Util.guardarTexto(pathArchivo, textoCodificado, codigos);
 
         AlertM msg = new AlertM(Alert.AlertType.NONE, stageCompress, "Compresión completa.");
@@ -109,7 +104,7 @@ public class Controller_compress {
     }
 
     @FXML
-    void actionSelect() {
+    void onSelectSaveWithOtherName() {
         if (checkRename.isSelected()) {
             textRename.setVisible(true);
             textRename.setDisable(false);

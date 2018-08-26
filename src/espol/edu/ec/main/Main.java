@@ -24,7 +24,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         
         primaryStage.initStyle(StageStyle.UNDECORATED);
-//        primaryStage.initStyle(StageStyle.TRANSPARENT);
     
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/espol/edu/ec/gui/view_main.fxml"));
         

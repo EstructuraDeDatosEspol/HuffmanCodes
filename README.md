@@ -1,2 +1,2 @@
 # Huffman Codes
-Codificador y decodificador de texto con el método de codificación de huffman.
+Codificador y decodificador de texto usando códigos de huffman.
